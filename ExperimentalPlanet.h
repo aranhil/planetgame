@@ -17,7 +17,11 @@ struct SmallCubeSide
 	FVector rightVec;
 	FVector topVec;
 
-	void GenerateTriangles();
+	void GenerateTriangles(TArray<int32>& triangles, TArray<FVector>& vertices);
+
+	bool trianglesGenerated;
+	TArray<int32> triangles;
+	TArray<FVector> vertices;
 };
 
 enum LargeCubeSideLinkage
@@ -47,6 +51,7 @@ struct LargeCubeSide
 	TArray<TArray<SmallCubeSide*>> smallCubeSides;
 
 	void GenerateSmallCubeSides(int subdivisions);
+	void GenerateTriangles(TArray<int32>& triangles, TArray<FVector>& vertices);
 	void LinkSmallCubeSides();
 };
 
@@ -68,6 +73,12 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	int PlanetRadius;
+
+	UPROPERTY(EditAnywhere)
+	int Subdivisions;
+
+	int oldSubdivisions;
+	int oldPlanetRadius;
 	
-	void PlanetRadiusChanged();
+	void PlanetTopologyChanged();
 };
